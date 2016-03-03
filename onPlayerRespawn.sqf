@@ -13,6 +13,9 @@ _tickets = [player, nil] call BIS_fnc_respawnTickets;
 //Disable various channels to disallow cheaty communication
 { _x enableChannel false } forEach [0,1,2];
 
+//Put on NVGs
+player action ["nvGoggles", player];
+
 //Handle starting position
 execVM "player\handleStartPosition.sqf";
 

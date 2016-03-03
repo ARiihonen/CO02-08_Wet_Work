@@ -20,6 +20,40 @@ if (!isServer || (isServer && !isDedicated) ) then {
 	
 	//give player a respawn ticket to use at start
 	[player, 1] call BIS_fnc_respawnTickets;
+	
+	//Shot event handler
+	_handleShooting = [] spawn {
+		waitUntil { dayTime > 4.75 };
+		
+		player addEventHandler ["Fired", "
+			if (!(missionNamespace getVariable ['shit_fan', false])) then {
+				
+				_weapon = _this select 1;
+				
+				if (_weapon != 'Put' ) then {
+					_silenced = false;
+					
+					if (_weapon == primaryWeapon player && 'muzzle_snds_H' in primaryWeaponItems player) then {
+						_silenced = true;
+					} else {
+						if (_weapon == handgunWeapon player && 'muzzle_snds_L' in handgunItems player) then {
+							_silenced = true;
+						};
+					};
+					
+					if (!_silenced) then {
+						missionNamespace setVariable ['shit_fan', true, true];
+					};
+				} else {
+					hint 'put';
+				};
+			};
+			
+			if (missionNamespace getVariable ['shit_fan', false]) then {
+				player removeEventHandler ['Fired', 0];
+			};
+		"];
+	};
 };
 
 execVM "logic\hcHandle.sqf";

@@ -33,8 +33,6 @@ _mainGroups = [] spawn {
 				_newGroup = createGroup east;
 				_newGroup setVariable ["wetwork_base", _grp getVariable "wetwork_base", false];
 				
-				diag_log format ["%1 called back. New group %2", _grp, _newGroup];
-				
 				(_grp getVariable "dismiss_group") joinSilent _newGroup;
 				_newGroup setVariable ["dismiss_group", units _x, false];
 					
@@ -50,23 +48,21 @@ _mainGroups = [] spawn {
 				
 				_groups = _groups - [_grp];
 				_groups set [count _groups, _newGroup];
-				
-				diag_log format ["Groups: %1", _groups];
 			};
 			
 		} forEach _groups;
 	};
 };
 
-_targetWaypoints = [] spawn {
-	waitUntil { (missionNamespace getVariable ["meeting_over", false]) || (missionNamespace getVariable ["shit_fan", false]) };
+_visitWaypoints = [] spawn {
+	waitUntil { (missionNamespace getVariable ["meeting_over", false]) };
 	
-	if (missionNamespace getVariable ["meeting_over", false]) then {
-		[local_leader] joinSilent (group target);
+	if (!(missionNamespace getVariable ["shit_fan", false])) then {
+		(units group target) joinSilent (group local_leader);
 		
 		_markers_road = ["marker_road_1"];
 		for "_i" from 2 to (5 - main_spot) do {
-			_markers_road set [count _markers_road, format ["marker_road_%1", _i];
+			_markers_road set [count _markers_road, format ["marker_road_%1", _i]];
 		};
 		
 		{
@@ -83,27 +79,36 @@ _targetWaypoints = [] spawn {
 			leaderGrp = createGroup east;
 			[local_leader] joinSilent leaderGrp;
 			
-			_returnWp = (group this) addWaypoint [getPos target_vehicle, 0];
+			_returnWp = (group leader) addWaypoint [getPos target_vehicle, 0];
 			_returnWp setWaypointType 'GETIN';
 			_returnWp waypointAttachVehicle target_vehicle;
 		"];
-		
-		waitUntil { (missionNamespace getVariable ["shit_fan", false]) };
-		_newGrp = createGroup east;
-		[target] joinSilent _newGrp;
-		
+	
+	};
+};
+	
+_escapeWaypoints = [] spawn {
+	waitUntil { (missionNamespace getVariable ["shit_fan", false]) };
+	
+	_newGrp = createGroup east;
+	[target] joinSilent _newGrp;
+	
+	if (vehicle target != target_vehicle) then {
 		_escapeWP = _newGrp addWaypoint [getPos target_vehicle, 0];
 		_escapeWP setWaypointType 'GETIN';
 		_escapeWP setWaypointSpeed 'FULL';
 		_escapeWP setWaypointBehaviour 'AWARE';
 		_escapeWP waypointAttachVehicle target_vehicle;
-		
-		_newGrpTwo = createGroup east;
-		[crew target_vehicle] joinSilent _newGrpTwo;
-		_escapeWP = _newGrpTwo addWaypoint [markerPos "marker_escape", 0];
-		_escapeWP setWaypointType 'MOVE';
-		_escapeWP setWaypointSpeed 'FULL';
-		_escapeWP setWaypointBehaviour 'AWARE';
-		_escapeWP setWaypointStatements ['vehicle target == vehicle this', ''];
+		_newGrp setCurrentWaypoint _escapeWP;
+	
+		waitUntil { vehicle target == target_vehicle };
 	};
+	
+	(crew target_vehicle) joinSilent _newGrp;
+
+	_escapeWP = _newGrp addWaypoint [markerPos 'marker_escape', 0];
+	_escapeWP setWaypointType 'MOVE';
+	_escapeWP setWaypointSpeed 'FULL';
+	_escapeWP setWaypointBehaviour 'AWARE';
+	_newGrp setCurrentWaypoint _escapeWP;
 };

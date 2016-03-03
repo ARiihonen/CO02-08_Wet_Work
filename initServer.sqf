@@ -17,6 +17,12 @@ _progress = [] spawn {
 	_ending = false;
 	_players_away = false;
 	_phase_switch = false;
+	
+	{
+		if (side _x == east) then {
+			_x addEventHandler ["Killed", "_dead = missionNamespace getVariable ['enemies_killed', 0]; missionNamespace setVariable ['enemies_killed', _dead + 1];"];
+		};
+	} forEach allUnits;
 
 	//Starts a loop to check mission status every second, update tasks, and end mission when appropriate
 	while {!_ending} do {
@@ -66,8 +72,10 @@ _progress = [] spawn {
 		};
 		
 		//Sets shit hitting the fan if THINGS
-		if (!(missionNamespace getVariable ["shit_fan", false]) && (!canMove boat_1 || !canMove boat_2 || !canMove boat_3) ) then {
-			missionNamespace setVariable ["shit_fan", true];
+		if (!(missionNamespace getVariable ["shit_fan", false]) && (!canMove boat_1 || !canMove boat_2 || !canMove boat_3 || (missionNamespace getVariable ["enemies_killed", 0] > 6) ) ) then {
+			missionNamespace setVariable ["shit_fan", true, true];
+			
+			diag_log format ["SHITFAN ACTIVATED: boat 1: %1, boat2: %2, boat3: %3, enemies killed: %4", canMove boat_1, canMove boat_2, canMove boat_3, (missionNamespace getVariable ["enemies_killed", 0]) ];
 		};
 		
 		//Sets _players_away as true if everyone alive is in extract area:
@@ -98,11 +106,11 @@ _progress = [] spawn {
 				waitUntil { dayTime >= 4.75 };
 				setTimeMultiplier 1;
 				
-				missionNamespace setVariable ["phase_2", true];
+				missionNamespace setVariable ["phase_2", true, true];
 			};
 		} else {
 			if (missionNamespace getVariable ["phase_2", false]) then {
-				missionNamespace setVariable ["phase_2", true];
+				missionNamespace setVariable ["phase_2", true, true];
 			};
 		};
 	

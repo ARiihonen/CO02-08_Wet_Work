@@ -1,7 +1,3 @@
-Infiltrate and prepare for your attack during the night. ADD MARKERS CONTAINING THE STRING 'INFIL' AND OPTIONALLY YOUR TEAM NAME ('RED' OR 'BLUE') TO CHOOSE A STARTING POSITION WITHIN THE BLUE MARKERS.
+At 0500 this morning, a russian colonel will visit the 1st Company of the 2nd Mikkeli Battalion of the FPC, to inspect <marker name = 'marker_?'>their newest platoon</marker>. The precise location of the platoon's camp is unknown, but the commander of the FPC company operating in the area is meeting the target at <marker name = 'marker_hq'>his command post</marker> prior to accompanying him to the camp.
 <br /> <br />
-When you have completed your nighttime tasks, select "Ready to wait" from your action menu. Once everyone is ready, this will fast forward the time to 0445. The target is set to arrive at 0500.
-<br /> <br />
-Capture the target and exfiltrate him to <marker name = 'marker_end'>the lake</marker> in a boat. <marker name = 'marker_hq'>The enemy regimental headquarters</marker> should have boats next to it.
-<br /> <br />
-If capturing the target seems impossible, kill him and extract.
+Your mission is to capture the colonel and to transport him back to an FDF-controlled area. Should the capturing fail, you are to kill the colonel before extracting from the area.

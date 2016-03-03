@@ -3,6 +3,12 @@ _playerPos = getPos player;
 _goggles = false;
 if (goggles player == "G_Diving") then {
 	player unassignItem (goggles player);
+	_goggles = true;
+};
+
+_nv = false;
+if (currentVisionMode player == 1) then {
+	player unassignItem "rhsusf_ANPVS_14";
 };
 
 _cam = "camera" camcreate _playerPos;
@@ -33,5 +39,5 @@ _cam cameraeffect ["terminate", "back"];
 camDestroy _cam;
 
 if (_goggles) then {
-	_player assignItem "G_Diving";
+	player assignItem "G_Diving";
 };

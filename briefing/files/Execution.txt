@@ -1,0 +1,11 @@
+You have set off swimming across <marker name = 'marker_talvilahti'>Talvijärvi</marker> and are set to arrive to the area of operations at 0200. You will have three hours to reconnoiter and prepare for your raid, before the target is set to arrive.
+<br /> <br />
+The target is scheduled to arrive at <marker name = 'marker_hq'>the 1st Company command post</marker> at 0500. He will meet with the local commander, after which they will inspect <marker name = 'marker_?'>the new platoon</marker>. The camp's exact location is unknown.
+<br /> <br />
+In order to extract the target, you will need to commandeer a boat stabile enough to wrangle the bound target onto. <marker name = 'marker_hq'>The command post</marker> includes a boat shed that has housed civilian boats in the past, and some more have been seen around <marker name = 'marker_hiekkaniemi'>Hiekkaniemi shore</marker>. 
+<br /> <br />
+<marker name = 'marker_oravasalmi'>Oravasalmi</marker> is constantly patrolled by enemy speedboats, which you will have to deal with in order to successfully extract the target through it. Their patrols, however, frequently stop to converse with their friends near <marker name = 'marker_boats'>their campsite</marker>. This should provide an opportunity for covertly attaching explosives onto the boats.
+<br /> <br />
+Whether you succeed in capturing the target or not, extraction from the area will be <marker name = 'marker_end'>over the lake</marker>, by boat or by swimming.
+<br /> <br />
+Engaging the enemy is unadvised until you are ready to execute your assault. The local leader will want to appear good on inspection and is unlikely to mention small disturbances during the night, but should he lose several patrols or any of the patrol boats, he will be forced to report that the area is not safe, leading to the target skipping the meeting.

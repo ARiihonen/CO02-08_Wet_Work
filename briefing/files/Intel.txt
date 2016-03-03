@@ -1,3 +1,11 @@
-Enemy forces: 3 platoons of infantry, with speedboat patrols on the bay. Taking out the speedboats is essential if you plan to extract the target by boat. They make periodical stops near <marker name = 'marker_boats'>their campsite</marker>, which may give you the opportunity to attach explosives.
+<font color = '#B22222' size = '14'>ENEMY FORCES</font><br/>
+The area is under control of 1st Company, 2nd Mikkeli Battalion, of the Finnish Protection Corps. The company is under-strength and being reinforced with new troops out of Russia. Currently it consists of three platoons:
 <br /> <br />
-Friendly forces: None. You're on your own here.
+<font color = '#B22222'><marker name = 'marker_aa'>Anti-Air Infantry platoon</marker></font>: Currently tasked with holding <marker name = 'marker_pekurila'>Pekurilanniemi</marker> and providing limited AA capability for the forces in this area. <br />
+<font color = '#B22222'><marker name = 'marker_fwd'>1st Combat Platoon</marker></font>: The primary offensive infantry platoon of the company.<br />
+<font color = '#B22222'><marker name = 'marker_?'>2nd Combat Platoon</marker></font>: A new platoon, recently arrived with a resupply and reinforcement convoy from Russia. Exact camp location unknown.
+<br /> <br />
+In addition to the full-strength platoons, the company contains <font color = '#B22222'><marker name = 'marker_boats'>a speedboat element</marker></font>, and <font color = '#B22222'><marker name = 'marker_hq'>the command team.</marker></font>
+<br /> <br />
+<font color = '#00008B' size = '14'>FRIENDLY FORCES</font><br/>
+No friendly forces in the area. No support available.

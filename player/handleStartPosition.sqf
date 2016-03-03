@@ -29,6 +29,7 @@ if (count _infil_markers > 0) then {
 		_position = getMarkerPos (_group_markers select 0);
 		(_group_markers select 0) setMarkerTypeLocal "mil_start";
 		(_group_markers select 0) setMarkerColorLocal "ColorWEST";
+		(_group_markers select 0) setMarkerDirLocal 315;
 		
 		if (count _group_markers > 1) then {
 			_text = "Multiple markers with group ID and 'infil' found. Selecting first.";
@@ -38,6 +39,7 @@ if (count _infil_markers > 0) then {
 		_position = getMarkerPos (_infil_markers select 0);
 		(_infil_markers select 0) setMarkerTypeLocal "mil_start";
 		(_infil_markers select 0) setMarkerColorLocal "ColorWEST";
+		(_infil_markers select 0) setMarkerDirLocal 315;
 		
 		if (count _infil_markers > 1) then {
 			_text = "Multiple markers with 'infil' found. Selecting first.";
