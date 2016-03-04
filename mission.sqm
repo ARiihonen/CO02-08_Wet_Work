@@ -8,7 +8,7 @@ class EditorData
 	toggles=1;
 	class ItemIDProvider
 	{
-		nextID=1468;
+		nextID=1472;
 	};
 	class MarkerIDProvider
 	{
@@ -16,14 +16,14 @@ class EditorData
 	};
 	class LayerIndexProvider
 	{
-		nextID=348;
+		nextID=412;
 	};
 	class Camera
 	{
-		pos[]={4259.0508,28.986107,396.81369};
-		dir[]={0,-0.70710683,0.70710683};
-		up[]={0,0.70710677,0.70710677};
-		aside[]={0.99999994,0,0};
+		pos[]={5056.3467,352.14157,908.13287};
+		dir[]={-0.54881364,-0.59976864,0.58239812};
+		up[]={-0.41134092,0.80015844,0.43651226};
+		aside[]={0.72781914,-1.0057702e-006,0.68585259};
 	};
 };
 binarizationWanted=0;
@@ -2220,7 +2220,7 @@ class Mission
 		class Item6
 		{
 			dataType="Trigger";
-			position[]={5250.3672,-15.00047,285.16501};
+			position[]={5270.8188,-15.00047,308.14929};
 			angle=-0.78737038;
 			class Attributes
 			{
@@ -3068,8 +3068,8 @@ class Mission
 				};
 				class Attribute4
 				{
-					property="ACE_moduleMedicalSettings_remoteControlledAI";
-					expression="_this setVariable ['remoteControlledAI',_value,true];";
+					property="ACE_moduleMedicalSettings_increaseTrainingInLocations";
+					expression="_this setVariable ['increaseTrainingInLocations',_value,true];";
 					class Value
 					{
 						class data
@@ -3106,6 +3106,25 @@ class Mission
 				};
 				class Attribute6
 				{
+					property="ACE_moduleMedicalSettings_remoteControlledAI";
+					expression="_this setVariable ['remoteControlledAI',_value,true];";
+					class Value
+					{
+						class data
+						{
+							class type
+							{
+								type[]=
+								{
+									"BOOL"
+								};
+							};
+							value=0;
+						};
+					};
+				};
+				class Attribute7
+				{
 					property="ACE_moduleMedicalSettings_painCoefficient";
 					expression="_this setVariable ['painCoefficient',_value,true];";
 					class Value
@@ -3123,7 +3142,7 @@ class Mission
 						};
 					};
 				};
-				class Attribute7
+				class Attribute8
 				{
 					property="ACE_moduleMedicalSettings_AIDamageThreshold";
 					expression="_this setVariable ['AIDamageThreshold',_value,true];";
@@ -3142,7 +3161,7 @@ class Mission
 						};
 					};
 				};
-				class Attribute8
+				class Attribute9
 				{
 					property="ACE_moduleMedicalSettings_playerDamageThreshold";
 					expression="_this setVariable ['playerDamageThreshold',_value,true];";
@@ -3161,7 +3180,7 @@ class Mission
 						};
 					};
 				};
-				class Attribute9
+				class Attribute10
 				{
 					property="ACE_moduleMedicalSettings_level";
 					expression="_this setVariable ['level',_value,true];";
@@ -3180,7 +3199,7 @@ class Mission
 						};
 					};
 				};
-				class Attribute10
+				class Attribute11
 				{
 					property="ACE_moduleMedicalSettings_allowLitterCreation";
 					expression="_this setVariable ['allowLitterCreation',_value,true];";
@@ -3199,7 +3218,7 @@ class Mission
 						};
 					};
 				};
-				class Attribute11
+				class Attribute12
 				{
 					property="ACE_moduleMedicalSettings_keepLocalSettingsSynced";
 					expression="_this setVariable ['keepLocalSettingsSynced',_value,true];";
@@ -3218,7 +3237,7 @@ class Mission
 						};
 					};
 				};
-				class Attribute12
+				class Attribute13
 				{
 					property="ACE_moduleMedicalSettings_medicSetting";
 					expression="_this setVariable ['medicSetting',_value,true];";
@@ -3237,7 +3256,7 @@ class Mission
 						};
 					};
 				};
-				nAttributes=13;
+				nAttributes=14;
 			};
 		};
 		class Item16
@@ -6363,8 +6382,8 @@ class Mission
 							dataType="Object";
 							class PositionInfo
 							{
-								position[]={3987.408,28.566652,3670.707};
-								angles[]={0,2.1427057,0};
+								position[]={3991.3889,28.613995,3669.4333};
+								angles[]={0,2.194844,0};
 							};
 							side="East";
 							flags=3;
@@ -6404,7 +6423,41 @@ class Mission
 							dataType="Object";
 							class PositionInfo
 							{
-								position[]={3989.1182,28.553902,3672.1538};
+								position[]={3989.4958,28.576914,3668.3689};
+								angles[]={0.11396419,2.1480699,6.2478919};
+							};
+							side="East";
+							flags=1;
+							class Attributes
+							{
+								skill=0.40000001;
+							};
+							id=373;
+							type="rhs_vdv_grenadier";
+						};
+						class Item2
+						{
+							dataType="Object";
+							class PositionInfo
+							{
+								position[]={3988.9436,28.570868,3669.5166};
+								angles[]={0.11396419,2.1480699,6.2478919};
+							};
+							side="East";
+							flags=1;
+							class Attributes
+							{
+								skill=0.40000001;
+							};
+							id=372;
+							type="rhs_vdv_LAT";
+						};
+						class Item3
+						{
+							dataType="Object";
+							class PositionInfo
+							{
+								position[]={3989.7192,28.560385,3670.9199};
 								angles[]={0.11396419,2.1480699,6.2478919};
 							};
 							side="East";
@@ -6417,46 +6470,12 @@ class Mission
 							id=369;
 							type="rhs_vdv_efreitor";
 						};
-						class Item2
-						{
-							dataType="Object";
-							class PositionInfo
-							{
-								position[]={3986.7632,28.551418,3673.3462};
-								angles[]={0.11396419,2.1480699,6.2478919};
-							};
-							side="East";
-							flags=1;
-							class Attributes
-							{
-								skill=0.40000001;
-							};
-							id=373;
-							type="rhs_vdv_grenadier";
-						};
-						class Item3
-						{
-							dataType="Object";
-							class PositionInfo
-							{
-								position[]={3986.2109,28.44709,3674.4939};
-								angles[]={0.11396419,2.1480699,6.2478919};
-							};
-							side="East";
-							flags=1;
-							class Attributes
-							{
-								skill=0.40000001;
-							};
-							id=372;
-							type="rhs_vdv_LAT";
-						};
 						class Item4
 						{
 							dataType="Object";
 							class PositionInfo
 							{
-								position[]={3990.2942,28.555775,3673.1553};
+								position[]={3990.8953,28.582649,3671.9214};
 								angles[]={0.11396419,2.1480699,6.2478919};
 							};
 							side="East";
@@ -6471,7 +6490,7 @@ class Mission
 						class Item5
 						{
 							dataType="Waypoint";
-							position[]={3992.5129,28.658508,3667.761};
+							position[]={3992.3579,28.647572,3668.7146};
 							combatMode="YELLOW";
 							formation="COLUMN";
 							speed="LIMITED";

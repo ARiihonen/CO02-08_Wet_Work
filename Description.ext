@@ -21,7 +21,7 @@ respawnDialog = 0;
 respawnOnStart = 0;
 respawnTemplates[] = {"Tickets","Spectator"};
 
-enableDebugConsole = 1; //enable debug console for the admin 
+enableDebugConsole = 0; //enable debug console for the admin 
 
 //Game type stuff. Doesn't matter, but will get shown in mission select.
 class Header {
@@ -42,7 +42,7 @@ class CfgDebriefing {
 	
 	class Win {
 		title = "Mission Complete";
-		subtitle = "HVT Extracted";
+		subtitle = "HVT Captured";
 		picture = "\A3\ui_f\data\map\mapcontrol\taskIconDone_ca.paa";
 		picturecolor[] = {0.0,0.3,0.6,1};
 	};

@@ -34,41 +34,28 @@ _progress = [] spawn {
 			
 			sleep 2;
 			
+			_end = "";
 			if (! ("captureTask" call BIS_fnc_taskCompleted) ) then {
 				if (alive target) then {
-					if (target in list trigger_extraction) then {
+					if ([trigger_extraction, (getPos vehicle target)] call BIS_fnc_inTrigger) then {
 						["captureTask", "SUCCEEDED", false] call BIS_fnc_taskSetState;
+						_end = "Win";
 					} else {
 						["captureTask", "FAILED", false] call BIS_fnc_taskSetState;
 						["killTask", true, ["Kill the target if capturing is not successful.", "Kill HVT", ""], nil, "FAILED", 0, false, true] call BIS_fnc_setTask;
+						_end = "Lose";
 					};
 				} else {
 					["captureTask", "FAILED", false] call BIS_fnc_taskSetState;
 					["killTask", true, ["Kill the target if capturing is not successful.", "Kill HVT", ""], nil, "SUCCEEDED", 0, false, true] call BIS_fnc_setTask;
+					_end = "Salvaged";
 				};
 			};
 			
 			sleep 8;
 			
-			_end = "";
-			if ( toUpper (["captureTask"] call BIS_fnc_taskState) == "SUCCEEDED" ) then {
-				_end = "Win";
-				
-				diag_log "Capturetask succeeded";
-			} else {
-				if ( toUpper (["killTask"] call BIS_fnc_taskState) == "SUCCEEDED" ) then {
-					_end = "Salvaged";
-					
-					diag_log "Kill task succeeded";
-				} else {
-					_end = "Lose";
-					
-					diag_log "Nothing succeeded";
-				};
-			};
-			
 			//Runs end.sqf on everyone. For varying mission end states, calculate the correct one here and send it as an argument for end.sqf
-			[[_end],"end.sqf"] remoteExec ["BIS_fnc_execVM",west,false];
+			[_end,"end.sqf"] remoteExec ["BIS_fnc_execVM",west,false];
 		};
 		
 		//Sets shit hitting the fan if THINGS
@@ -78,10 +65,11 @@ _progress = [] spawn {
 			diag_log format ["SHITFAN ACTIVATED: boat 1: %1, boat2: %2, boat3: %3, enemies killed: %4", canMove boat_1, canMove boat_2, canMove boat_3, (missionNamespace getVariable ["enemies_killed", 0]) ];
 		};
 		
+		
 		//Sets _players_away as true if everyone alive is in extract area:
 		_players_away = true;
 		{
-			if (alive _x && !(_x in list trigger_extraction)) then {
+			if ( alive _x && !([trigger_extraction, (getPos (vehicle _x) )] call BIS_fnc_inTrigger) ) then {
 				_players_away = false;
 			};
 		} forEach playableUnits;
@@ -90,7 +78,7 @@ _progress = [] spawn {
 		if (!_phase_switch) then {
 			_phase_switch = true;
 			{
-				if (!(_x getVariable ["wetwork_ready", false])) then {
+				if (!(_x getVariable ["wetwork_ready", false]) && alive _x) then {
 					_phase_switch = false;
 				};
 			} forEach playableUnits;

@@ -23,5 +23,9 @@ execVM "player\handleStartPosition.sqf";
 ready_action = player addAction ["<t color='#228B22'>Ready to wait</t>", "player\readyAction.sqf", true, 1, false, true];
 
 waitUntil { missionNamespace getVariable ["phase_2", false] };
-player removeAction ready_action;
-player removeAction unready_action;
+if (!isNil 'ready_action') then {
+	player removeAction ready_action;
+};
+if (!isNil 'unready_action') then {
+	player removeAction unready_action;
+};

@@ -3,3 +3,5 @@ Select your starting position from within <marker name = 'marker_shore_1'>the tw
 Once you are finished with your preparations during the night, you can select <font color='#228B22'>'Ready to wait'</font> from your action menu. Once all players are ready, <font color='#228B22'>the mission will fast-forward to 0445</font>, giving you 15 minutes to prepare before the target is set to arrive at the HQ.
 <br /> <br />
 Destroying any of the boats or killing more than 6 enemies at any point of the mission will force the local leaders to admit they do not have total control over the area, and the target will not arrive at the AO. The mission will not fail, you will need to identify the situation and to extract from the area yourselves. Additionally, firing an unsilenced weapon after 0445 will spook the target, causing him to leave the area.
+<br /> <br />
+Your backpack includes a plate carrier, so you can stash your heavy rebreather somewhere during a phase of the mission where you would rather have a lighter load than be able to dive.

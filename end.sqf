@@ -1,6 +1,5 @@
 _ending = _this;
 
-diag_log format ["Ending %1", _ending];
 //Separate ending conditions:
 
 /*Different endings are set up in Description.ext in the cfgDebriefing class, 
