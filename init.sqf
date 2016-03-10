@@ -18,9 +18,6 @@ if (!isServer || (isServer && !isDedicated) ) then {
 	//put in briefings
 	briefing = [] execVM "briefing\briefing.sqf";
 	
-	//give player a respawn ticket to use at start
-	[player, 1] call BIS_fnc_respawnTickets;
-	
 	//Shot event handler
 	_handleShooting = [] spawn {
 		waitUntil { dayTime > 4.75 };

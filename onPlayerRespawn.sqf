@@ -4,10 +4,6 @@
 //Make screen black to disguise start teleporting
 titleText ["", "BLACK FADED", 60];
 
-//Make sure player has no more tickets so can't respawn
-_tickets = [player, nil] call BIS_fnc_respawnTickets;
-[player, (_tickets*-1)] call BIS_fnc_respawnTickets;
-
 //_gear = player execVM "player\gear.sqf"; //running the gear script
 
 //Disable various channels to disallow cheaty communication
