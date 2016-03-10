@@ -3,18 +3,17 @@ if (alive player) then {
 	_playerPos = getPos player;
 
 	_goggles = false;
-	if (goggles player == "G_Diving") then {
-		player unassignItem (goggles player);
+	if (goggles player == 'G_Diving') then {
+		removeGoggles player;
 		_goggles = true;
 	};
 
-	_nv = false;
 	if (currentVisionMode player == 1) then {
-		player unassignItem "rhsusf_ANPVS_14";
+		player action ['nvGogglesOff', player];
 	};
 
-	_cam = "camera" camcreate _playerPos;
-	_cam cameraeffect ["internal", "back"];
+	_cam = 'camera' camcreate _playerPos;
+	_cam cameraeffect ['internal', 'back'];
 	showcinemaBorder false;
 
 	_cam camPrepareTarget _playerPos;
@@ -23,7 +22,7 @@ if (alive player) then {
 	_cam camCommitPrepared 7;
 	waitUntil { camCommitted _cam };
 
-	_cam camPrepareTarget (markerPos "cam_target");
+	_cam camPrepareTarget (markerPos 'cam_target');
 	_cam camCommitPrepared 3;
 	waitUntil { camCommitted _cam };
 
@@ -37,10 +36,10 @@ if (alive player) then {
 	_cam camCommitPrepared 3;
 	waitUntil { camCommitted _cam };
 
-	_cam cameraeffect ["terminate", "back"];
+	_cam cameraeffect ['terminate', 'back'];
 	camDestroy _cam;
 
 	if (_goggles) then {
-		player assignItem "G_Diving";
+		player addGoggles 'G_Diving';
 	};
 };

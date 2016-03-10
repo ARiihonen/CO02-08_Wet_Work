@@ -6,8 +6,8 @@ This runs on the server machine after objects have initialised in the map. Anyth
 [missionNamespace, 1] call BIS_fnc_respawnTickets;
 [missionNamespace, -1] call BIS_fnc_respawnTickets;
 
-//Task setting: ["TaskName", locality, ["Description", "Title", "Marker"], target, "STATE", priority, showNotification, true] call BIS_fnc_setTask;
-["captureTask", true, ["Capture the russian officer as proof of their involvement in the rebellion.", "Capture HVT", ""], nil, "ASSIGNED", 0, false, true] call BIS_fnc_setTask;
+//Task setting: ['TaskName', locality, ['Description', 'Title', 'Marker'], target, 'STATE', priority, showNotification, true] call BIS_fnc_setTask;
+['captureTask', true, ['Capture the russian officer as proof of their involvement in the rebellion.', 'Capture HVT', ''], nil, 'ASSIGNED', 0, false, true] call BIS_fnc_setTask;
 //Add killTask and fail captureTask if dead target ID'd (action)
 
 //Spawns a thread that will run a loop to keep an eye on mission progress and to end it when appropriate, checking which ending should be displayed.
@@ -20,7 +20,12 @@ _progress = [] spawn {
 	
 	{
 		if (side _x == east) then {
-			_x addEventHandler ["Killed", "_dead = missionNamespace getVariable ['enemies_killed', 0]; missionNamespace setVariable ['enemies_killed', _dead + 1];"];
+			_x addEventHandler ['Killed', "
+				if (isPlayer (_this select 1)) then { 
+					_dead = missionNamespace getVariable ['enemies_killed', 0]; 
+					missionNamespace setVariable ['enemies_killed', _dead + 1];
+				};
+			"];
 		};
 	} forEach allUnits;
 
@@ -34,37 +39,46 @@ _progress = [] spawn {
 			
 			sleep 2;
 			
-			_end = "";
-			if (! ("captureTask" call BIS_fnc_taskCompleted) ) then {
+			_end = '';
+			if (! ('captureTask' call BIS_fnc_taskCompleted) ) then {
 				if (alive target) then {
 					if ([trigger_extraction, (getPos vehicle target)] call BIS_fnc_inTrigger) then {
-						["captureTask", "SUCCEEDED", false] call BIS_fnc_taskSetState;
-						_end = "Win";
+						['captureTask', 'SUCCEEDED', false] call BIS_fnc_taskSetState;
+						_end = 'Win';
 					} else {
-						["captureTask", "FAILED", false] call BIS_fnc_taskSetState;
-						["killTask", true, ["Kill the target if capturing is not successful.", "Kill HVT", ""], nil, "FAILED", 0, false, true] call BIS_fnc_setTask;
-						_end = "Lose";
+						['captureTask', 'FAILED', false] call BIS_fnc_taskSetState;
+						['killTask', true, ['Kill the target if capturing is not successful.', 'Kill HVT', ''], nil, 'FAILED', 0, false, true] call BIS_fnc_setTask;
+						_end = 'Lose';
 					};
 				} else {
-					["captureTask", "FAILED", false] call BIS_fnc_taskSetState;
-					["killTask", true, ["Kill the target if capturing is not successful.", "Kill HVT", ""], nil, "SUCCEEDED", 0, false, true] call BIS_fnc_setTask;
-					_end = "Salvaged";
+					['captureTask', 'FAILED', false] call BIS_fnc_taskSetState;
+					['killTask', true, ['Kill the target if capturing is not successful.', 'Kill HVT', ''], nil, 'SUCCEEDED', 0, false, true] call BIS_fnc_setTask;
+					_end = 'Salvaged';
 				};
 			};
 			
 			sleep 8;
 			
 			//Runs end.sqf on everyone. For varying mission end states, calculate the correct one here and send it as an argument for end.sqf
-			[_end,"end.sqf"] remoteExec ["BIS_fnc_execVM",west,false];
+			[_end,'end.sqf'] remoteExec ['BIS_fnc_execVM',west,false];
 		};
 		
-		//Sets shit hitting the fan if THINGS
-		if (!(missionNamespace getVariable ["shit_fan", false]) && (!canMove boat_1 || !canMove boat_2 || !canMove boat_3 || (missionNamespace getVariable ["enemies_killed", 0] > 6) ) ) then {
-			missionNamespace setVariable ["shit_fan", true, true];
+		//Sets different stages of shit hitting fan
+		_kills_shit = 2 + (floor random 3);
+		_kills_extra_shit = _kills_shit + (floor random 6);
+		
+		if (!(missionNamespace getVariable ['shit_extra_fan', false])) then {
+			if ((missionNamespace getVariable ['enemies_killed', 0] > _kills_extra_shit) || !canMove boat_1 || !canMove boat_2 || !canMove boat_3) then {
+				missionNamespace setVariable ['shit_extra_fan', true, true];
+				missionNamespace setVariable ['shit_fan', true, true];
+			};
 			
-			diag_log format ["SHITFAN ACTIVATED: boat 1: %1, boat2: %2, boat3: %3, enemies killed: %4", canMove boat_1, canMove boat_2, canMove boat_3, (missionNamespace getVariable ["enemies_killed", 0]) ];
+			if (!(missionNamespace getVariable ['shit_extra_fan', false]) && !(missionNamespace getVariable ['shit_fan', false]) ) then {
+				if (missionNamespace getVariable ['enemies_killed', 0] > _kills_shit) then {
+					missionNamespace setVariable ['shit_fan', true, true];
+				};
+			};
 		};
-		
 		
 		//Sets _players_away as true if everyone alive is in extract area:
 		_players_away = true;
@@ -78,7 +92,7 @@ _progress = [] spawn {
 		if (!_phase_switch) then {
 			_phase_switch = true;
 			{
-				if (!(_x getVariable ["wetwork_ready", false]) && alive _x) then {
+				if (!(_x getVariable ['wetwork_ready', false]) && alive _x) then {
 					_phase_switch = false;
 				};
 			} forEach playableUnits;
@@ -86,19 +100,15 @@ _progress = [] spawn {
 		
 		if ( dayTime < 4.75 ) then {
 			if (_phase_switch) then {
-				sleep 1;
+				missionNamespace setVariable ['phase_switching', true, true];
 				
-				[[],"player\phaseSwitch.sqf"] remoteExec ["BIS_fnc_execVM",west,false];
+				[[],'player\phaseSwitch.sqf'] remoteExec ['BIS_fnc_execVM',west,false];
 				
 				setTimeMultiplier 120;
 				waitUntil { dayTime >= 4.75 };
 				setTimeMultiplier 1;
 				
-				missionNamespace setVariable ["phase_2", true, true];
-			};
-		} else {
-			if (missionNamespace getVariable ["phase_2", false]) then {
-				missionNamespace setVariable ["phase_2", true, true];
+				missionNamespace setVariable ['phase_switching', false, true];
 			};
 		};
 	
@@ -110,7 +120,7 @@ _generator_sounds = [] spawn {
 		_generator = generator_main;
 		_position = generator_main modelToWorld [0,0,0];
 		_filePath = [(str missionConfigFile), 0, -15] call BIS_fnc_trimString;
-		_filePath = _filePath + "sounds\generator.wav";
+		_filePath = _filePath + 'sounds\generator.wav';
 		
 		playSound3D [_filePath, _generator, false, _position, 1, 1, 0];
 		sleep 2.3;
@@ -119,4 +129,4 @@ _generator_sounds = [] spawn {
 
 //client inits wait for serverInit to be true before starting, to make sure all variables the server sets up are set up before clients try to refer to them (which would cause errors)
 serverInit = true;
-publicVariable "serverInit";
+publicVariable 'serverInit';

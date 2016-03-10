@@ -8,4 +8,4 @@ In order to extract the target, you will need to commandeer a boat stabile enoug
 <br /> <br />
 Whether you succeed in capturing the target or not, extraction from the area will be <marker name = 'marker_end'>over the lake</marker>, by boat or by swimming.
 <br /> <br />
-Engaging the enemy is unadvised until you are ready to execute your assault. The local leader will want to appear good on inspection and is unlikely to mention small disturbances during the night, but should he lose several patrols or any of the patrol boats, he will be forced to report that the area is not safe, leading to the target skipping the meeting.
+Engaging the enemy is unadvised until you are ready to execute your assault. While the target has no communications with the local units and the local commander wants to appear good on inspection and will be hesitant to report disturbances during the night, anything major will cause the target to turn away at first contact with local troops who can report on the night's events. 
