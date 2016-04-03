@@ -116,7 +116,7 @@ _progress = [] spawn {
 };
 
 _generator_sounds = [] spawn {
-	while { dayTime < 5 } do {
+	while { dayTime < 4.75 } do {
 		_generator = generator_main;
 		_position = generator_main modelToWorld [0,0,0];
 		_filePath = [(str missionConfigFile), 0, -15] call BIS_fnc_trimString;
