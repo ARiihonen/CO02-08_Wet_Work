@@ -8,7 +8,7 @@ class EditorData
 	toggles=1;
 	class ItemIDProvider
 	{
-		nextID=1487;
+		nextID=1496;
 	};
 	class MarkerIDProvider
 	{
@@ -16,14 +16,14 @@ class EditorData
 	};
 	class LayerIndexProvider
 	{
-		nextID=732;
+		nextID=796;
 	};
 	class Camera
 	{
-		pos[]={3569.3188,-8.2782097,1977.5723};
-		dir[]={0,-0.70710683,0.70710683};
-		up[]={0,0.70710677,0.70710677};
-		aside[]={0.99999994,0,0};
+		pos[]={4791.0352,158.68649,977.34857};
+		dir[]={0.10404035,-0.56133389,0.82106757};
+		up[]={0.070570081,0.82756895,0.55690527};
+		aside[]={0.99210668,1.0452641e-007,-0.12571436};
 	};
 };
 binarizationWanted=0;
@@ -59,11 +59,11 @@ addons[]=
 	"A3_Structures_F_Households_Slum",
 	"Shed_wooden",
 	"cup_shed_wooden",
-	"CAMisc",
-	"cup_camisc",
 	"ace_map",
 	"ace_mk6mortar",
-	"A3_Static_F_Mortar_01"
+	"A3_Static_F_Mortar_01",
+	"CAMisc",
+	"cup_camisc"
 };
 randomSeed=5214878;
 class ScenarioData
@@ -10630,21 +10630,21 @@ class Mission
 					side="East";
 					class Entities
 					{
-						items=7;
+						items=6;
 						class Item0
 						{
 							dataType="Object";
 							class PositionInfo
 							{
-								position[]={3508.7209,25.844017,1603.785};
-								angles[]={0,0.45612437,0};
+								position[]={3482.9199,25.291922,1635.9771};
+								angles[]={0,3.5038009,0};
 							};
 							side="East";
 							flags=3;
 							class Attributes
 							{
 								rank="SERGEANT";
-								init="group_aa = group this";
+								init="group_aa = group this; if (isServer) then { [this,""SIT_LOW"",""FULL"", { missionNamespace getVariable [""players_noticed"", false] || missionNamespace getVariable [""shit_fan"", false] || missionNamespace getVariable [""shit_extra_fan"", false] }] call BIS_fnc_ambientAnimCombat; };";
 								class Inventory
 								{
 									class primaryWeapon
@@ -10821,7 +10821,7 @@ class Mission
 							dataType="Object";
 							class PositionInfo
 							{
-								position[]={3503.6006,25.563808,1602.1747};
+								position[]={3476.5339,25.297853,1634.0525};
 								angles[]={0,0.45612323,0};
 							};
 							side="East";
@@ -10829,6 +10829,7 @@ class Mission
 							class Attributes
 							{
 								rank="CORPORAL";
+								init="if (isServer) then { [this,""SIT_LOW"",""FULL"", { missionNamespace getVariable [""players_noticed"", false] || missionNamespace getVariable [""shit_fan"", false] || missionNamespace getVariable [""shit_extra_fan"", false] }] call BIS_fnc_ambientAnimCombat; };";
 								class Inventory
 								{
 									class primaryWeapon
@@ -10962,13 +10963,14 @@ class Mission
 							dataType="Object";
 							class PositionInfo
 							{
-								position[]={3510.436,25.641201,1599.4496};
-								angles[]={0,0.45612323,0};
+								position[]={3537.5059,29.253809,1598.4893};
+								angles[]={0,2.2693915,0};
 							};
 							side="East";
 							flags=1;
 							class Attributes
 							{
+								init="if (isServer) then { [this,""SIT_LOW"",""FULL"", { missionNamespace getVariable [""players_noticed"", false] || missionNamespace getVariable [""shit_fan"", false] || missionNamespace getVariable [""shit_extra_fan"", false] }] call BIS_fnc_ambientAnimCombat; };";
 								class Inventory
 								{
 									class primaryWeapon
@@ -11102,13 +11104,14 @@ class Mission
 							dataType="Object";
 							class PositionInfo
 							{
-								position[]={3512.0347,25.687052,1598.92};
+								position[]={3537.6145,29.253809,1593.1129};
 								angles[]={0,0.45612323,0};
 							};
 							side="East";
 							flags=1;
 							class Attributes
 							{
+								init="if (isServer) then { [this,""SIT_LOW"",""FULL"", { missionNamespace getVariable [""players_noticed"", false] || missionNamespace getVariable [""shit_fan"", false] || missionNamespace getVariable [""shit_extra_fan"", false] }] call BIS_fnc_ambientAnimCombat; };";
 								class Inventory
 								{
 									class primaryWeapon
@@ -11223,12 +11226,13 @@ class Mission
 							dataType="Object";
 							class PositionInfo
 							{
-								position[]={3508.8799,25.607857,1600.1908};
-								angles[]={0,0.45612437,0};
+								position[]={3531.406,29.253809,1606.7347};
+								angles[]={0,3.6607707,0};
 							};
 							side="East";
 							class Attributes
 							{
+								init="if (isServer) then { [this,""SIT_LOW"",""FULL"", { missionNamespace getVariable [""players_noticed"", false] || missionNamespace getVariable [""shit_fan"", false] || missionNamespace getVariable [""shit_extra_fan"", false] }] call BIS_fnc_ambientAnimCombat; };";
 								class Inventory
 								{
 									class primaryWeapon
@@ -11369,12 +11373,13 @@ class Mission
 							dataType="Object";
 							class PositionInfo
 							{
-								position[]={3507.5464,25.577164,1600.6627};
-								angles[]={0,0.45612437,0};
+								position[]={3527.7893,29.253809,1602.5538};
+								angles[]={0,1.8932468,0};
 							};
 							side="East";
 							class Attributes
 							{
+								init="if (isServer) then { [this,""SIT_LOW"",""FULL"", { missionNamespace getVariable [""players_noticed"", false] || missionNamespace getVariable [""shit_fan"", false] || missionNamespace getVariable [""shit_extra_fan"", false] }] call BIS_fnc_ambientAnimCombat; };";
 								class Inventory
 								{
 									class primaryWeapon
@@ -11509,19 +11514,6 @@ class Mission
 								};
 								nAttributes=2;
 							};
-						};
-						class Item6
-						{
-							dataType="Waypoint";
-							position[]={3512.679,25.897846,1602.322};
-							type="Dismiss";
-							combatMode="RED";
-							combat="SAFE";
-							class Effects
-							{
-							};
-							showWP="NEVER";
-							id=1430;
 						};
 					};
 					class Attributes
@@ -14471,21 +14463,21 @@ class Mission
 							side="East";
 							class Entities
 							{
-								items=7;
+								items=6;
 								class Item0
 								{
 									dataType="Object";
 									class PositionInfo
 									{
-										position[]={4551.6167,6.7877722,1328.4011};
-										angles[]={0,0.45612437,0};
+										position[]={4559.333,7.0979061,1322.0071};
+										angles[]={0,3.4229572,0};
 									};
 									side="East";
 									flags=3;
 									class Attributes
 									{
 										rank="SERGEANT";
-										init="group_main = group this;";
+										init="group_main = group this; if (isServer) then { [this,""SIT_LOW"",""FULL"", { missionNamespace getVariable [""players_noticed"", false] || missionNamespace getVariable [""shit_fan"", false] || missionNamespace getVariable [""shit_extra_fan"", false] }] call BIS_fnc_ambientAnimCombat; };";
 										presenceCondition="main_spot == 1";
 										class Inventory
 										{
@@ -14663,15 +14655,15 @@ class Mission
 									dataType="Object";
 									class PositionInfo
 									{
-										position[]={4546.4956,8.5613012,1326.791};
-										angles[]={0,0.45612437,0};
+										position[]={4544.5059,6.6039324,1331.2991};
+										angles[]={0,4.0282125,0};
 									};
 									side="East";
 									flags=1;
 									class Attributes
 									{
 										rank="CORPORAL";
-										init="group_main = group this;";
+										init="if (isServer) then { [this,""SIT_LOW"",""FULL"", { missionNamespace getVariable [""players_noticed"", false] || missionNamespace getVariable [""shit_fan"", false] || missionNamespace getVariable [""shit_extra_fan"", false] }] call BIS_fnc_ambientAnimCombat; };";
 										presenceCondition="main_spot == 1";
 										class Inventory
 										{
@@ -14806,14 +14798,14 @@ class Mission
 									dataType="Object";
 									class PositionInfo
 									{
-										position[]={4550.4419,8.1107435,1325.2791};
-										angles[]={0,0.45612437,0};
+										position[]={4551.896,6.8041925,1319.9971};
+										angles[]={0,6.2611251,0};
 									};
 									side="East";
 									flags=1;
 									class Attributes
 									{
-										init="group_main = group this;";
+										init="if (isServer) then { [this,""SIT_LOW"",""FULL"", { missionNamespace getVariable [""players_noticed"", false] || missionNamespace getVariable [""shit_fan"", false] || missionNamespace getVariable [""shit_extra_fan"", false] }] call BIS_fnc_ambientAnimCombat; };";
 										presenceCondition="main_spot == 1";
 										class Inventory
 										{
@@ -14962,14 +14954,14 @@ class Mission
 									dataType="Object";
 									class PositionInfo
 									{
-										position[]={4551.7749,7.9624662,1324.8071};
-										angles[]={0,0.45612437,0};
+										position[]={4549.9458,6.8660498,1322.1718};
+										angles[]={0,1.5592172,0};
 									};
 									side="East";
 									flags=1;
 									class Attributes
 									{
-										init="group_main = group this;";
+										init="if (isServer) then { [this,""SIT_LOW"",""FULL"", { missionNamespace getVariable [""players_noticed"", false] || missionNamespace getVariable [""shit_fan"", false] || missionNamespace getVariable [""shit_extra_fan"", false] }] call BIS_fnc_ambientAnimCombat; };";
 										presenceCondition="main_spot == 1";
 										class Inventory
 										{
@@ -15083,14 +15075,14 @@ class Mission
 									dataType="Object";
 									class PositionInfo
 									{
-										position[]={4553.3315,7.9228201,1324.0659};
-										angles[]={0,0.45612437,0};
+										position[]={4563.6606,7.1593194,1322.5673};
+										angles[]={0,5.8664274,0};
 									};
 									side="East";
 									flags=1;
 									class Attributes
 									{
-										init="group_main = group this;";
+										init="if (isServer) then { [this,""SIT_LOW"",""FULL"", { missionNamespace getVariable [""players_noticed"", false] || missionNamespace getVariable [""shit_fan"", false] || missionNamespace getVariable [""shit_extra_fan"", false] }] call BIS_fnc_ambientAnimCombat; };";
 										presenceCondition="main_spot == 1";
 										class Inventory
 										{
@@ -15225,14 +15217,14 @@ class Mission
 									dataType="Object";
 									class PositionInfo
 									{
-										position[]={4554.9302,7.7968435,1323.5364};
-										angles[]={0,0.45612437,0};
+										position[]={4550.2212,6.7992501,1341.8185};
+										angles[]={0,3.0040617,0};
 									};
 									side="East";
 									flags=1;
 									class Attributes
 									{
-										init="group_main = group this;";
+										init="if (isServer) then { [this,""SIT_LOW"",""FULL"", { missionNamespace getVariable [""players_noticed"", false] || missionNamespace getVariable [""shit_fan"", false] || missionNamespace getVariable [""shit_extra_fan"", false] }] call BIS_fnc_ambientAnimCombat; };";
 										presenceCondition="main_spot == 1";
 										class Inventory
 										{
@@ -15342,17 +15334,6 @@ class Mission
 										};
 										nAttributes=2;
 									};
-								};
-								class Item6
-								{
-									dataType="Waypoint";
-									position[]={4554.7891,6.8586192,1328.402};
-									type="Dismiss";
-									class Effects
-									{
-									};
-									showWP="NEVER";
-									id=1434;
 								};
 							};
 							class Attributes
@@ -15684,22 +15665,6 @@ class Mission
 							dataType="Object";
 							class PositionInfo
 							{
-								position[]={4551.5889,7.0806112,1321.7751};
-								angles[]={6.2504492,0,0.004796607};
-							};
-							side="Empty";
-							class Attributes
-							{
-								presenceCondition="main_spot == 1";
-							};
-							id=1338;
-							type="Campfire_burning_F";
-						};
-						class Item17
-						{
-							dataType="Object";
-							class PositionInfo
-							{
 								position[]={4547.8022,7.2944412,1315.2592};
 								angles[]={0.0072506224,0,6.2193742};
 							};
@@ -15711,7 +15676,7 @@ class Mission
 							id=1339;
 							type="Land_ClutterCutter_large_F";
 						};
-						class Item18
+						class Item17
 						{
 							dataType="Object";
 							class PositionInfo
@@ -15727,7 +15692,7 @@ class Mission
 							id=1340;
 							type="Land_ClutterCutter_large_F";
 						};
-						class Item19
+						class Item18
 						{
 							dataType="Object";
 							class PositionInfo
@@ -15743,7 +15708,7 @@ class Mission
 							id=1341;
 							type="Land_ClutterCutter_large_F";
 						};
-						class Item20
+						class Item19
 						{
 							dataType="Object";
 							class PositionInfo
@@ -15758,7 +15723,7 @@ class Mission
 							id=1342;
 							type="Land_ClutterCutter_large_F";
 						};
-						class Item21
+						class Item20
 						{
 							dataType="Object";
 							class PositionInfo
@@ -15774,7 +15739,7 @@ class Mission
 							id=1343;
 							type="Land_ClutterCutter_large_F";
 						};
-						class Item22
+						class Item21
 						{
 							dataType="Object";
 							class PositionInfo
@@ -15790,13 +15755,53 @@ class Mission
 							id=1344;
 							type="StorageBladder_02_water_forest_F";
 						};
-						class Item23
+						class Item22
 						{
 							dataType="Marker";
 							position[]={4556.4424,6.7720847,1318.6827};
 							name="marker_main_1";
 							type="Empty";
 							id=1384;
+						};
+						class Item23
+						{
+							dataType="Object";
+							class PositionInfo
+							{
+								position[]={4551.5889,7.0805993,1321.7748};
+								angles[]={6.250443,0,0.0047996556};
+							};
+							side="Empty";
+							class Attributes
+							{
+								init="if (isServer) then { fires pushback this; };";
+								presenceCondition="main_spot == 1";
+							};
+							id=1494;
+							type="Land_Campfire_F";
+							class CustomAttributes
+							{
+								class Attribute0
+								{
+									property="ace_isMedicalFacility";
+									expression="_this setVariable [""ace_medical_isMedicalFacility"",_value,true];";
+									class Value
+									{
+										class data
+										{
+											class type
+											{
+												type[]=
+												{
+													"BOOL"
+												};
+											};
+											value=0;
+										};
+									};
+								};
+								nAttributes=1;
+							};
 						};
 					};
 					id=971;
@@ -18731,13 +18736,13 @@ class Mission
 							side="East";
 							class Entities
 							{
-								items=7;
+								items=6;
 								class Item0
 								{
 									dataType="Object";
 									class PositionInfo
 									{
-										position[]={4915.7734,3.2798924,1486.6996};
+										position[]={4918.27,3.3288882,1485.6801};
 										angles[]={0,0.45612437,0};
 									};
 									side="East";
@@ -18745,7 +18750,7 @@ class Mission
 									class Attributes
 									{
 										rank="SERGEANT";
-										init="group_main = group this;";
+										init="group_main = group this; if (isServer) then { [this,""SIT_LOW"",""FULL"", { missionNamespace getVariable [""players_noticed"", false] || missionNamespace getVariable [""shit_fan"", false] || missionNamespace getVariable [""shit_extra_fan"", false] }] call BIS_fnc_ambientAnimCombat; };";
 										presenceCondition="main_spot == 2";
 										class Inventory
 										{
@@ -18923,15 +18928,15 @@ class Mission
 									dataType="Object";
 									class PositionInfo
 									{
-										position[]={4910.6523,4.4802027,1485.0895};
-										angles[]={0,0.45612437,0};
+										position[]={4896.0479,3.4976552,1503.7688};
+										angles[]={0,3.2057445,0};
 									};
 									side="East";
 									flags=1;
 									class Attributes
 									{
 										rank="CORPORAL";
-										init="group_main = group this;";
+										init="if (isServer) then { [this,""SIT_LOW"",""FULL"", { missionNamespace getVariable [""players_noticed"", false] || missionNamespace getVariable [""shit_fan"", false] || missionNamespace getVariable [""shit_extra_fan"", false] }] call BIS_fnc_ambientAnimCombat; };";
 										presenceCondition="main_spot == 2";
 										class Inventory
 										{
@@ -19066,14 +19071,14 @@ class Mission
 									dataType="Object";
 									class PositionInfo
 									{
-										position[]={4914.5986,3.9967859,1483.5775};
-										angles[]={0,0.45612437,0};
+										position[]={4908.7681,3.509454,1478.2849};
+										angles[]={0,4.7231941,0};
 									};
 									side="East";
 									flags=1;
 									class Attributes
 									{
-										init="group_main = group this;";
+										init="if (isServer) then { [this,""SIT_LOW"",""FULL"", { missionNamespace getVariable [""players_noticed"", false] || missionNamespace getVariable [""shit_fan"", false] || missionNamespace getVariable [""shit_extra_fan"", false] }] call BIS_fnc_ambientAnimCombat; };";
 										presenceCondition="main_spot == 2";
 										class Inventory
 										{
@@ -19222,14 +19227,14 @@ class Mission
 									dataType="Object";
 									class PositionInfo
 									{
-										position[]={4915.9316,3.979151,1483.1056};
-										angles[]={0,0.45612437,0};
+										position[]={4908.8276,3.5268626,1476.6804};
+										angles[]={0,4.6297331,0};
 									};
 									side="East";
 									flags=1;
 									class Attributes
 									{
-										init="group_main = group this;";
+										init="if (isServer) then { [this,""SIT_LOW"",""FULL"", { missionNamespace getVariable [""players_noticed"", false] || missionNamespace getVariable [""shit_fan"", false] || missionNamespace getVariable [""shit_extra_fan"", false] }] call BIS_fnc_ambientAnimCombat; };";
 										presenceCondition="main_spot == 2";
 										class Inventory
 										{
@@ -19343,14 +19348,14 @@ class Mission
 									dataType="Object";
 									class PositionInfo
 									{
-										position[]={4917.4883,4.1216898,1482.3644};
-										angles[]={0,0.45612437,0};
+										position[]={4918.2568,3.3280966,1488.6302};
+										angles[]={0,2.4431348,0};
 									};
 									side="East";
 									flags=1;
 									class Attributes
 									{
-										init="group_main = group this;";
+										init="if (isServer) then { [this,""SIT_LOW"",""FULL"", { missionNamespace getVariable [""players_noticed"", false] || missionNamespace getVariable [""shit_fan"", false] || missionNamespace getVariable [""shit_extra_fan"", false] }] call BIS_fnc_ambientAnimCombat; };";
 										presenceCondition="main_spot == 2";
 										class Inventory
 										{
@@ -19485,14 +19490,14 @@ class Mission
 									dataType="Object";
 									class PositionInfo
 									{
-										position[]={4919.0869,4.3280306,1481.8348};
-										angles[]={0,0.45612437,0};
+										position[]={4920.8198,3.3602269,1486.4364};
+										angles[]={0,5.3694849,0};
 									};
 									side="East";
 									flags=1;
 									class Attributes
 									{
-										init="group_main = group this;";
+										init="if (isServer) then { [this,""SIT_LOW"",""FULL"", { missionNamespace getVariable [""players_noticed"", false] || missionNamespace getVariable [""shit_fan"", false] || missionNamespace getVariable [""shit_extra_fan"", false] }] call BIS_fnc_ambientAnimCombat; };";
 										presenceCondition="main_spot == 2";
 										class Inventory
 										{
@@ -19602,17 +19607,6 @@ class Mission
 										};
 										nAttributes=2;
 									};
-								};
-								class Item6
-								{
-									dataType="Waypoint";
-									position[]={4917.2319,3.3147461,1488.924};
-									type="Dismiss";
-									class Effects
-									{
-									};
-									showWP="NEVER";
-									id=1433;
 								};
 							};
 							class Attributes
@@ -19944,22 +19938,6 @@ class Mission
 							dataType="Object";
 							class PositionInfo
 							{
-								position[]={4919.4985,3.5611677,1487.3506};
-								angles[]={0.00059801998,0,0.012477554};
-							};
-							side="Empty";
-							class Attributes
-							{
-								presenceCondition="main_spot == 2";
-							};
-							id=1277;
-							type="Campfire_burning_F";
-						};
-						class Item17
-						{
-							dataType="Object";
-							class PositionInfo
-							{
 								position[]={4894.4624,3.5262089,1502.7048};
 								angles[]={6.2612152,1.2166967,6.2502279};
 							};
@@ -19971,7 +19949,7 @@ class Mission
 							id=1278;
 							type="Land_ClutterCutter_large_F";
 						};
-						class Item18
+						class Item17
 						{
 							dataType="Object";
 							class PositionInfo
@@ -19987,7 +19965,7 @@ class Mission
 							id=1279;
 							type="Land_ClutterCutter_large_F";
 						};
-						class Item19
+						class Item18
 						{
 							dataType="Object";
 							class PositionInfo
@@ -20003,7 +19981,7 @@ class Mission
 							id=1280;
 							type="Land_ClutterCutter_large_F";
 						};
-						class Item20
+						class Item19
 						{
 							dataType="Object";
 							class PositionInfo
@@ -20019,7 +19997,7 @@ class Mission
 							id=1281;
 							type="Land_ClutterCutter_large_F";
 						};
-						class Item21
+						class Item20
 						{
 							dataType="Object";
 							class PositionInfo
@@ -20035,7 +20013,7 @@ class Mission
 							id=1282;
 							type="Land_ClutterCutter_large_F";
 						};
-						class Item22
+						class Item21
 						{
 							dataType="Object";
 							class PositionInfo
@@ -20051,13 +20029,53 @@ class Mission
 							id=1283;
 							type="StorageBladder_02_water_forest_F";
 						};
-						class Item23
+						class Item22
 						{
 							dataType="Marker";
 							position[]={4897.0234,3.6066289,1486.2039};
 							name="marker_main_2";
 							type="Empty";
 							id=1284;
+						};
+						class Item23
+						{
+							dataType="Object";
+							class PositionInfo
+							{
+								position[]={4919.498,3.5612435,1487.3501};
+								angles[]={0.00059341197,0,0.012479103};
+							};
+							side="Empty";
+							class Attributes
+							{
+								init="if (isServer) then { fires pushback this; };";
+								presenceCondition="main_spot == 2";
+							};
+							id=1493;
+							type="Land_Campfire_F";
+							class CustomAttributes
+							{
+								class Attribute0
+								{
+									property="ace_isMedicalFacility";
+									expression="_this setVariable [""ace_medical_isMedicalFacility"",_value,true];";
+									class Value
+									{
+										class data
+										{
+											class type
+											{
+												type[]=
+												{
+													"BOOL"
+												};
+											};
+											value=0;
+										};
+									};
+								};
+								nAttributes=1;
+							};
 						};
 					};
 					id=972;
@@ -22983,13 +23001,13 @@ class Mission
 							side="East";
 							class Entities
 							{
-								items=7;
+								items=6;
 								class Item0
 								{
 									dataType="Object";
 									class PositionInfo
 									{
-										position[]={4839.9219,10.152493,1742.6389};
+										position[]={4842.252,10.062715,1743.1321};
 										angles[]={0,0.45612437,0};
 									};
 									side="East";
@@ -22997,7 +23015,7 @@ class Mission
 									class Attributes
 									{
 										rank="SERGEANT";
-										init="group_main = group this;";
+										init="group_main = group this; if (isServer) then { [this,""SIT_LOW"",""FULL"", { missionNamespace getVariable [""players_noticed"", false] || missionNamespace getVariable [""shit_fan"", false] || missionNamespace getVariable [""shit_extra_fan"", false] }] call BIS_fnc_ambientAnimCombat; };";
 										presenceCondition="main_spot == 3";
 										class Inventory
 										{
@@ -23175,15 +23193,15 @@ class Mission
 									dataType="Object";
 									class PositionInfo
 									{
-										position[]={4834.8008,11.036471,1741.0284};
-										angles[]={0,0.45612437,0};
+										position[]={4844.9839,10.075438,1753.6621};
+										angles[]={0,3.0029087,0};
 									};
 									side="East";
 									flags=1;
 									class Attributes
 									{
 										rank="CORPORAL";
-										init="group_main = group this;";
+										init="if (isServer) then { [this,""SIT_LOW"",""FULL"", { missionNamespace getVariable [""players_noticed"", false] || missionNamespace getVariable [""shit_fan"", false] || missionNamespace getVariable [""shit_extra_fan"", false] }] call BIS_fnc_ambientAnimCombat; };";
 										presenceCondition="main_spot == 3";
 										class Inventory
 										{
@@ -23318,14 +23336,14 @@ class Mission
 									dataType="Object";
 									class PositionInfo
 									{
-										position[]={4838.7471,10.952649,1739.5165};
+										position[]={4834.8271,10.318835,1728.5847};
 										angles[]={0,0.45612437,0};
 									};
 									side="East";
 									flags=1;
 									class Attributes
 									{
-										init="group_main = group this;";
+										init="if (isServer) then { [this,""SIT_LOW"",""FULL"", { missionNamespace getVariable [""players_noticed"", false] || missionNamespace getVariable [""shit_fan"", false] || missionNamespace getVariable [""shit_extra_fan"", false] }] call BIS_fnc_ambientAnimCombat; };";
 										presenceCondition="main_spot == 3";
 										class Inventory
 										{
@@ -23474,14 +23492,14 @@ class Mission
 									dataType="Object";
 									class PositionInfo
 									{
-										position[]={4840.0801,11.040938,1739.0446};
-										angles[]={0,0.45612437,0};
+										position[]={4825.8491,10.35092,1748.2449};
+										angles[]={0,1.5252624,0};
 									};
 									side="East";
 									flags=1;
 									class Attributes
 									{
-										init="group_main = group this;";
+										init="if (isServer) then { [this,""SIT_LOW"",""FULL"", { missionNamespace getVariable [""players_noticed"", false] || missionNamespace getVariable [""shit_fan"", false] || missionNamespace getVariable [""shit_extra_fan"", false] }] call BIS_fnc_ambientAnimCombat; };";
 										presenceCondition="main_spot == 3";
 										class Inventory
 										{
@@ -23595,14 +23613,14 @@ class Mission
 									dataType="Object";
 									class PositionInfo
 									{
-										position[]={4841.6367,11.209488,1738.3033};
-										angles[]={0,0.45612437,0};
+										position[]={4843.6206,10.018362,1745.9928};
+										angles[]={0,3.1341672,0};
 									};
 									side="East";
 									flags=1;
 									class Attributes
 									{
-										init="group_main = group this;";
+										init="if (isServer) then { [this,""SIT_LOW"",""FULL"", { missionNamespace getVariable [""players_noticed"", false] || missionNamespace getVariable [""shit_fan"", false] || missionNamespace getVariable [""shit_extra_fan"", false] }] call BIS_fnc_ambientAnimCombat; };";
 										presenceCondition="main_spot == 3";
 										class Inventory
 										{
@@ -23737,14 +23755,14 @@ class Mission
 									dataType="Object";
 									class PositionInfo
 									{
-										position[]={4843.2354,11.359732,1737.7738};
-										angles[]={0,0.45612437,0};
+										position[]={4845.2368,9.9833555,1743.4349};
+										angles[]={0,5.2391419,0};
 									};
 									side="East";
 									flags=1;
 									class Attributes
 									{
-										init="group_main = group this;";
+										init="if (isServer) then { [this,""SIT_LOW"",""FULL"", { missionNamespace getVariable [""players_noticed"", false] || missionNamespace getVariable [""shit_fan"", false] || missionNamespace getVariable [""shit_extra_fan"", false] }] call BIS_fnc_ambientAnimCombat; };";
 										presenceCondition="main_spot == 3";
 										class Inventory
 										{
@@ -23854,17 +23872,6 @@ class Mission
 										};
 										nAttributes=2;
 									};
-								};
-								class Item6
-								{
-									dataType="Waypoint";
-									position[]={4842,10.064392,1743.671};
-									type="Dismiss";
-									class Effects
-									{
-									};
-									showWP="NEVER";
-									id=1432;
 								};
 							};
 							class Attributes
@@ -24204,22 +24211,6 @@ class Mission
 							dataType="Object";
 							class PositionInfo
 							{
-								position[]={4843.4258,10.245363,1744.4211};
-								angles[]={0.0025605692,0,6.257484};
-							};
-							side="Empty";
-							class Attributes
-							{
-								presenceCondition="main_spot == 3";
-							};
-							id=1231;
-							type="Campfire_burning_F";
-						};
-						class Item18
-						{
-							dataType="Object";
-							class PositionInfo
-							{
 								position[]={4831.0278,10.517361,1727.1857};
 								angles[]={6.2372413,0,6.2552137};
 							};
@@ -24231,7 +24222,7 @@ class Mission
 							id=1236;
 							type="Land_ClutterCutter_large_F";
 						};
-						class Item19
+						class Item18
 						{
 							dataType="Object";
 							class PositionInfo
@@ -24247,7 +24238,7 @@ class Mission
 							id=1237;
 							type="Land_ClutterCutter_large_F";
 						};
-						class Item20
+						class Item19
 						{
 							dataType="Object";
 							class PositionInfo
@@ -24263,7 +24254,7 @@ class Mission
 							id=1238;
 							type="Land_ClutterCutter_large_F";
 						};
-						class Item21
+						class Item20
 						{
 							dataType="Object";
 							class PositionInfo
@@ -24279,7 +24270,7 @@ class Mission
 							id=1239;
 							type="Land_ClutterCutter_large_F";
 						};
-						class Item22
+						class Item21
 						{
 							dataType="Object";
 							class PositionInfo
@@ -24295,7 +24286,7 @@ class Mission
 							id=1240;
 							type="Land_ClutterCutter_large_F";
 						};
-						class Item23
+						class Item22
 						{
 							dataType="Object";
 							class PositionInfo
@@ -24310,6 +24301,46 @@ class Mission
 							};
 							id=1229;
 							type="StorageBladder_02_water_forest_F";
+						};
+						class Item23
+						{
+							dataType="Object";
+							class PositionInfo
+							{
+								position[]={4843.4258,10.245338,1744.4216};
+								angles[]={0.002565634,0,6.2574768};
+							};
+							side="Empty";
+							class Attributes
+							{
+								init="if (isServer) then { fires pushback this; };";
+								presenceCondition="main_spot == 3";
+							};
+							id=1492;
+							type="Land_Campfire_F";
+							class CustomAttributes
+							{
+								class Attribute0
+								{
+									property="ace_isMedicalFacility";
+									expression="_this setVariable [""ace_medical_isMedicalFacility"",_value,true];";
+									class Value
+									{
+										class data
+										{
+											class type
+											{
+												type[]=
+												{
+													"BOOL"
+												};
+											};
+											value=0;
+										};
+									};
+								};
+								nAttributes=1;
+							};
 						};
 					};
 					id=973;
@@ -24330,21 +24361,21 @@ class Mission
 					side="East";
 					class Entities
 					{
-						items=7;
+						items=6;
 						class Item0
 						{
 							dataType="Object";
 							class PositionInfo
 							{
-								position[]={4213.5288,20.789379,2181.075};
-								angles[]={0,0.45612437,0};
+								position[]={4211.125,23.612707,2145.3979};
+								angles[]={0,0.23565435,0};
 							};
 							side="East";
 							flags=3;
 							class Attributes
 							{
 								rank="SERGEANT";
-								init="group_fwd = group this";
+								init="group_fwd = group this; if (isServer) then { [this,""SIT_LOW"",""FULL"", { missionNamespace getVariable [""players_noticed"", false] || missionNamespace getVariable [""shit_fan"", false] || missionNamespace getVariable [""shit_extra_fan"", false] }] call BIS_fnc_ambientAnimCombat; };";
 								class Inventory
 								{
 									class primaryWeapon
@@ -24521,14 +24552,15 @@ class Mission
 							dataType="Object";
 							class PositionInfo
 							{
-								position[]={4208.4087,20.644878,2179.4648};
-								angles[]={0,0.45612323,0};
+								position[]={4213.7178,23.613195,2148.5515};
+								angles[]={0,5.4178352,0};
 							};
 							side="East";
 							flags=1;
 							class Attributes
 							{
 								rank="CORPORAL";
+								init="if (isServer) then { [this,""SIT_LOW"",""FULL"", { missionNamespace getVariable [""players_noticed"", false] || missionNamespace getVariable [""shit_fan"", false] || missionNamespace getVariable [""shit_extra_fan"", false] }] call BIS_fnc_ambientAnimCombat; };";
 								class Inventory
 								{
 									class primaryWeapon
@@ -24662,13 +24694,14 @@ class Mission
 							dataType="Object";
 							class PositionInfo
 							{
-								position[]={4212.354,20.718615,2177.9529};
+								position[]={4227.9824,25.228985,2205.3931};
 								angles[]={0,0.45612323,0};
 							};
 							side="East";
 							flags=1;
 							class Attributes
 							{
+								init="if (isServer) then { [this,""SIT_LOW"",""FULL"", { missionNamespace getVariable [""players_noticed"", false] || missionNamespace getVariable [""shit_fan"", false] || missionNamespace getVariable [""shit_extra_fan"", false] }] call BIS_fnc_ambientAnimCombat; };";
 								class Inventory
 								{
 									class primaryWeapon
@@ -24816,13 +24849,14 @@ class Mission
 							dataType="Object";
 							class PositionInfo
 							{
-								position[]={4213.688,20.728153,2177.481};
-								angles[]={0,0.45612323,0};
+								position[]={4208.9438,20.103195,2154.0408};
+								angles[]={0,5.0215182,0};
 							};
 							side="East";
 							flags=1;
 							class Attributes
 							{
+								init="if (isServer) then { [this,""SIT_LOW"",""FULL"", { missionNamespace getVariable [""players_noticed"", false] || missionNamespace getVariable [""shit_fan"", false] || missionNamespace getVariable [""shit_extra_fan"", false] }] call BIS_fnc_ambientAnimCombat; };";
 								class Inventory
 								{
 									class primaryWeapon
@@ -24935,13 +24969,14 @@ class Mission
 							dataType="Object";
 							class PositionInfo
 							{
-								position[]={4215.2437,20.731419,2176.7397};
-								angles[]={0,0.45612323,0};
+								position[]={4203.8828,23.613195,2158.0396};
+								angles[]={0,3.0215683,0};
 							};
 							side="East";
 							flags=1;
 							class Attributes
 							{
+								init="if (isServer) then { [this,""SIT_LOW"",""FULL"", { missionNamespace getVariable [""players_noticed"", false] || missionNamespace getVariable [""shit_fan"", false] || missionNamespace getVariable [""shit_extra_fan"", false] }] call BIS_fnc_ambientAnimCombat; };";
 								class Inventory
 								{
 									class primaryWeapon
@@ -25075,13 +25110,14 @@ class Mission
 							dataType="Object";
 							class PositionInfo
 							{
-								position[]={4216.8423,20.740677,2176.2102};
-								angles[]={0,0.45612323,0};
+								position[]={4210.627,23.613195,2153.0564};
+								angles[]={0,4.9578676,0};
 							};
 							side="East";
 							flags=1;
 							class Attributes
 							{
+								init="if (isServer) then { [this,""SIT_LOW"",""FULL"", { missionNamespace getVariable [""players_noticed"", false] || missionNamespace getVariable [""shit_fan"", false] || missionNamespace getVariable [""shit_extra_fan"", false] }] call BIS_fnc_ambientAnimCombat; };";
 								class Inventory
 								{
 									class primaryWeapon
@@ -25190,17 +25226,6 @@ class Mission
 								};
 								nAttributes=2;
 							};
-						};
-						class Item6
-						{
-							dataType="Waypoint";
-							position[]={4214.5098,20.842592,2183.4939};
-							type="Dismiss";
-							class Effects
-							{
-							};
-							showWP="NEVER";
-							id=1431;
 						};
 					};
 					class Attributes
@@ -30541,21 +30566,6 @@ class Mission
 			dataType="Object";
 			class PositionInfo
 			{
-				position[]={4287.0405,4.0026922,1869.0118};
-				angles[]={6.225008,0,6.2559919};
-			};
-			side="Empty";
-			class Attributes
-			{
-			};
-			id=1457;
-			type="FireLit";
-		};
-		class Item53
-		{
-			dataType="Object";
-			class PositionInfo
-			{
 				position[]={4293.1445,4.6842647,1853.9014};
 				angles[]={6.2503419,2.902236,6.2779608};
 			};
@@ -30566,7 +30576,7 @@ class Mission
 			id=1465;
 			type="CampEastC";
 		};
-		class Item54
+		class Item53
 		{
 			dataType="Object";
 			class PositionInfo
@@ -30581,7 +30591,7 @@ class Mission
 			id=1466;
 			type="Land_ClutterCutter_large_F";
 		};
-		class Item55
+		class Item54
 		{
 			dataType="Marker";
 			position[]={3651.4033,15.705741,1418.7109};
@@ -30589,7 +30599,7 @@ class Mission
 			type="Empty";
 			id=1467;
 		};
-		class Item56
+		class Item55
 		{
 			dataType="Logic";
 			class PositionInfo
@@ -30641,7 +30651,7 @@ class Mission
 				nAttributes=2;
 			};
 		};
-		class Item57
+		class Item56
 		{
 			dataType="Logic";
 			class PositionInfo
@@ -30731,7 +30741,7 @@ class Mission
 				nAttributes=4;
 			};
 		};
-		class Item58
+		class Item57
 		{
 			dataType="Logic";
 			class PositionInfo
@@ -30821,7 +30831,7 @@ class Mission
 				nAttributes=4;
 			};
 		};
-		class Item59
+		class Item58
 		{
 			dataType="Trigger";
 			position[]={4199.376,0,1548.8134};
@@ -30840,7 +30850,7 @@ class Mission
 			id=1483;
 			type="EmptyDetectorAreaR250";
 		};
-		class Item60
+		class Item59
 		{
 			dataType="Object";
 			class PositionInfo
@@ -30855,6 +30865,45 @@ class Mission
 			};
 			id=1485;
 			type="O_Mortar_01_F";
+		};
+		class Item60
+		{
+			dataType="Object";
+			class PositionInfo
+			{
+				position[]={4287.041,4.0026731,1869.012};
+				angles[]={6.2250133,0,6.2559929};
+			};
+			side="Empty";
+			class Attributes
+			{
+				init="if (isServer) then { fires pushback this; };";
+			};
+			id=1495;
+			type="Fire";
+			class CustomAttributes
+			{
+				class Attribute0
+				{
+					property="ace_isMedicalFacility";
+					expression="_this setVariable [""ace_medical_isMedicalFacility"",_value,true];";
+					class Value
+					{
+						class data
+						{
+							class type
+							{
+								type[]=
+								{
+									"BOOL"
+								};
+							};
+							value=0;
+						};
+					};
+				};
+				nAttributes=1;
+			};
 		};
 	};
 };

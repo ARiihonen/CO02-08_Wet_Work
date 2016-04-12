@@ -48,4 +48,9 @@ if (!isServer || (isServer && !isDedicated) ) then {
 	};
 };
 
+//spawn custom fire effects
+{
+	[(getPos _x), "FIRE_MEDIUM"] execVM 'effects\fire_effects.sqf';
+} forEach fires;
+
 execVM 'logic\hcHandle.sqf';

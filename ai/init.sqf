@@ -1,82 +1,40 @@
-//Loop to keep main groups from moving too far beyond their own zones, while still being dismissed
-_mainGroups = [] spawn {
-	
-	_groups = [group_main, group_aa, group_fwd];
-	{
-		_x setVariable ['wetwork_base', (getPos leader _x), false];
-		_x setVariable ['dismiss_group', units _x, false];
-	} forEach _groups;
-	
-	group_fwd setVariable ['has_mortar', true];
-	
-	while { !(missionNamespace getVariable ['shit_fan', false] || missionNamespace getVariable ['shit_extra_fan', false] || missionNamespace getVariable ['players_noticed', false]) } do {
-		sleep 1;
-		{
-			_grp = _x;
-			
-			_callback = false;
-			{
-				if (_x distance (_grp getVariable 'wetwork_base') > 100 ) then {
-					_callback = true;
-				};
-			} forEach units _grp;
-			
-			if (_callback) then {
-				_newGroup = createGroup east;
-				_newGroup setVariable ['wetwork_base', _grp getVariable 'wetwork_base', false];
-				_newGroup setVariable ['has_mortar', (_grp getVariable ['has_mortar', false])];
-				
-				(_grp getVariable 'dismiss_group') joinSilent _newGroup;
-				_newGroup setVariable ['dismiss_group', units _x, false];
-					
-				_wp = _newGroup addWaypoint [_newGroup getVariable 'wetwork_base', 0, 1];
-				_wp setWaypointType 'MOVE';
-				_wp setWaypointBehaviour 'SAFE';
-				_wp setWaypointSpeed 'LIMITED';
-				_wp setWaypointCombatMode 'RED';
-				_newGroup setCurrentWaypoint _wp;
-				
-				_wp2 = _newGroup addWaypoint [_newGroup getVariable 'wetwork_base', 0, 2];
-				_wp2 setWaypointType 'DISMISS';
-				
-				_groups = _groups - [_grp];
-				_groups set [count _groups, _newGroup];
-			};
-			
-		} forEach _groups;
+//Killed event handler for all AI
+{
+	if (side _x == east) then {
+		_x addEventHandler ['Killed', "
+			_dead = missionNamespace getVariable ['enemies_killed', 0]; 
+			missionNamespace setVariable ['enemies_killed', _dead + 1];
+		"];
 	};
-	
+} forEach allUnits;
+
+//regular AI reaction if shit hits the fan:
+aiReaction = {
+	_groups = [group_main, group_aa, group_fwd];
 	diag_log format ['noticed: %1, shit_fan: %2, shit_extra_fan: %3', (missionNamespace getVariable ['players_noticed', false]), (missionNamespace getVariable ['shit_fan', false]), (missionNamespace getVariable ['shit_extra_fan', false]) ];
 	
 	{
 		_grp = _x;
-		_base = _grp getVariable 'wetwork_base';
-		_mortar = _grp getVariable ['has_mortar', false];
-		
-		diag_log format ['grp: %1, base: %2, mortar: %3', (_grp getVariable 'dismiss_group'), _base, _mortar];
-		
-		_newGroup = createGroup east;
-		(_grp getVariable 'dismiss_group') joinSilent _newGroup;
 
-		if ( _mortar && dayTime < 4.5 ) then {
-			_wp = _newGroup addWaypoint [getPos mortar, 0, 1];
+		if ( _grp == group_fwd ) then {
+			_wp = _grp addWaypoint [getPos mortar, 0, 1];
 			_wp setWaypointType 'GETIN';
 			_wp setWaypointBehaviour 'AWARE';
 			_wp setWaypointSpeed 'FULL';
 			_wp setWaypointCombatMode 'RED';
 			_wp waypointAttachVehicle mortar;
-			_newGroup setCurrentWaypoint _wp;
+			_grp setCurrentWaypoint _wp;
 			
-			(leader _newGroup) assignAsGunner mortar;
+			(leader _grp) assignAsGunner mortar;
 		} else {
-			_wp = _newGroup addWaypoint [_base, 0, 1];
+			_wp = _grp addWaypoint [(getPos leader _grp), 0, 1];
 			_wp setWaypointType 'SAD';
 			_wp setWaypointBehaviour 'AWARE';
 			_wp setWaypointSpeed 'LIMITED';
 			_wp setWaypointCombatMode 'RED';
-			_newGroup setCurrentWaypoint _wp;
+			_grp setCurrentWaypoint _wp;
 			
-			_wp = _newGroup addWaypoint [_base, 0];
+			_wp = _grp addWaypoint [(getpos leader _grp), 0];
 			_wp setWaypointType 'CYCLE';
 		};
 	} forEach _groups;
@@ -88,19 +46,30 @@ _mainGroups = [] spawn {
 	} forEach allGroups;
 	
 	if (dayTime < 4.5 && !(missionNamespace getVariable ['phase_switching', false])) then {
-		[[],'effects\mortarLight.sqf'] remoteExec ['BIS_fnc_execVM', 0, true];
-		waitUntil { count crew mortar > 0 };
-		
-		sleep 2;
-		mortar doArtilleryFire [markerPos 'marker_?', '8Rnd_82mm_Mo_Flare_white', 1];
-		for "_i" from 1 to 3 do {
-			if (!(missionNamespace getVariable ['phase_switching', false])) then {
-				mortar doArtilleryFire [markerPos 'marker_?', '8Rnd_82mm_Mo_Flare_white', 1];
-				sleep 60;
+		_mortarBarrage = [] spawn {
+			[[],'effects\mortarLight.sqf'] remoteExec ['BIS_fnc_execVM', 0, true];
+			waitUntil { count crew mortar > 0 };
+			
+			sleep 2;
+			mortar doArtilleryFire [markerPos 'marker_?', '8Rnd_82mm_Mo_Flare_white', 1];
+			for "_i" from 1 to 3 do {
+				if (!(missionNamespace getVariable ['phase_switching', false])) then {
+					mortar doArtilleryFire [markerPos 'marker_?', '8Rnd_82mm_Mo_Flare_white', 1];
+					sleep 60;
+				};
 			};
 		};
 	};
 };
+
+//detect shit in fan for AI reaction
+trigger_reaction = createTrigger ['EmptyDetector', [0,0,0], false];
+trigger_reaction setTriggerActivation ['NONE', 'PRESENT', true];
+trigger_reaction setTriggerStatements [
+	"missionNamespace getVariable ['shit_fan', false] || missionNamespace getVariable ['shit_extra_fan', false] || missionNamespace getVariable ['players_noticed', false]",
+	"call aiReaction; diag_log 'reaction'; hint 'reaction';",
+	""
+];
 
 breakMeeting = {
 	_newGrp = createGroup east;
@@ -179,18 +148,6 @@ _visitWaypoints = [] spawn {
 			(group target) setBehaviour _behaviour;
 			(group target) setFormation 'DIAMOND';
 		};
-		
-		/*
-		_vehicle_loop = [] spawn {
-			while { missionNamespace getVariable ['fuck_off_vehicles', true] } do {
-				{
-					unassignVehicle _x;
-				} forEach (units group local_leader);
-				
-				sleep 1;
-			};
-		};
-		*/
 		
 		_startWp = (group target) addWaypoint [markerPos 'marker_route_1', 0];
 		(group target) setCurrentWaypoint _startWp;

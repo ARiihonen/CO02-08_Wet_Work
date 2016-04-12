@@ -7,6 +7,7 @@ This script is defined as a pre-init function in description.ext, meaning it run
 if (isServer) then {
 	//Randomizing unit presence variables
 	main_spot = 1+ (floor(random 3));
+	fires = [];
 	
 	//Define strings to search for in active addons
 	_checkList = [

@@ -8,115 +8,89 @@ This runs on the server machine after objects have initialised in the map. Anyth
 
 //Task setting: ['TaskName', locality, ['Description', 'Title', 'Marker'], target, 'STATE', priority, showNotification, true] call BIS_fnc_setTask;
 ['captureTask', true, ['Capture the russian officer as proof of their involvement in the rebellion.', 'Capture HVT', ''], nil, 'ASSIGNED', 0, false, true] call BIS_fnc_setTask;
-//Add killTask and fail captureTask if dead target ID'd (action)
 
-//Spawns a thread that will run a loop to keep an eye on mission progress and to end it when appropriate, checking which ending should be displayed.
-_progress = [] spawn {
-	
-	//Init all variables you need in this loop
-	_ending = false;
-	_players_away = false;
-	_phase_switch = false;
-	
-	{
-		if (side _x == east) then {
-			_x addEventHandler ['Killed', "
-				if (isPlayer (_this select 1)) then { 
-					_dead = missionNamespace getVariable ['enemies_killed', 0]; 
-					missionNamespace setVariable ['enemies_killed', _dead + 1];
-				};
-			"];
+//end mission
+missionEnding = {
+	_end = '';
+	if (! ('captureTask' call BIS_fnc_taskCompleted) ) then {
+		if (alive target) then {
+			if ([trigger_extraction, (getPos vehicle target)] call BIS_fnc_inTrigger) then {
+				['captureTask', 'SUCCEEDED', false] call BIS_fnc_taskSetState;
+				_end = 'Win';
+			} else {
+				['captureTask', 'FAILED', false] call BIS_fnc_taskSetState;
+				['killTask', true, ['Kill the target if capturing is not successful.', 'Kill HVT', ''], nil, 'FAILED', 0, false, true] call BIS_fnc_setTask;
+				_end = 'Lose';
+			};
+		} else {
+			['captureTask', 'FAILED', false] call BIS_fnc_taskSetState;
+			['killTask', true, ['Kill the target if capturing is not successful.', 'Kill HVT', ''], nil, 'SUCCEEDED', 0, false, true] call BIS_fnc_setTask;
+			_end = 'Salvaged';
 		};
-	} forEach allUnits;
+	};
+	
+	//Runs end.sqf on everyone. For varying mission end states, calculate the correct one here and send it as an argument for end.sqf
+	[_end,'end.sqf'] remoteExec ['BIS_fnc_execVM',west,false];
+};
 
-	//Starts a loop to check mission status every second, update tasks, and end mission when appropriate
-	while {!_ending} do {
-		sleep 2;
+//Create trigger to handle ending when all living players are in extraction area
+trigger_ending = createTrigger ['EmptyDetector', [0,0,0], false];
+trigger_ending setTriggerActivation ['NONE', 'PRESENT', false];
+trigger_ending setTriggerStatements [
+	"{ !( [trigger_extraction, (getPos (vehicle _x)) ] call BIS_fnc_inTrigger ) } count playableUnits == 0",
+	"call missionEnding;",
+	""
+];
+
+//Sets different stages of shit hitting fan
+missionNamespace setVariable ['kills_shit', 2 + (floor random 3), false];
+missionNamespace setVariable ['kills_extra_shit', (missionNamespace getVariable 'kills_shit') + (floor random 6), false];
+
+//trigger for shit hitting fan
+trigger_shitfan = createTrigger ['EmptyDetector', [0,0,0], false];
+trigger_shitfan setTriggerActivation ['NONE', 'PRESENT', false];
+trigger_shitfan setTriggerStatements [
+	"!(missionNamespace getVariable ['shit_extra_fan', false]) && !(missionNamespace getVariable ['shit_fan', false]) && (missionNamespace getVariable ['enemies_killed', 0] > missionNamespace getVariable ['kills_shit', 2])",
+	"missionNamespace setVariable ['shit_fan', true, true]; hint 'shit fan!';",
+	""
+];
+
+//trigger for shit hitting extra fan
+trigger_shitfan_extra = createTrigger ['EmptyDetector', [0,0,0], false];
+trigger_shitfan_extra setTriggerActivation ['NONE', 'PRESENT', false];
+trigger_shitfan_extra setTriggerStatements [
+	"!(missionNamespace getVariable ['shit_extra_fan', false]) && ( (missionNamespace getVariable ['enemies_killed', 0] > missionNamespace getVariable ['kills_extra_shit', 2]) || !canMove boat_1 || !canMove boat_2 || !canMove boat_3 )",
+	"missionNamespace setVariable ['shit_extra_fan', true, true]; missionNamespace setVariable ['shit_fan', true, true]; hint 'shit extra fan!'",
+	""
+];
+
+//time skip to mission start
+phaseSwitch = {
+	if ( dayTime < 4.75 ) then {
+		missionNamespace setVariable ['phase_switching', true, true];
 		
-		//Mission ending condition check
-		if ( _players_away ) then {
-			_ending = true;
-			
-			sleep 2;
-			
-			_end = '';
-			if (! ('captureTask' call BIS_fnc_taskCompleted) ) then {
-				if (alive target) then {
-					if ([trigger_extraction, (getPos vehicle target)] call BIS_fnc_inTrigger) then {
-						['captureTask', 'SUCCEEDED', false] call BIS_fnc_taskSetState;
-						_end = 'Win';
-					} else {
-						['captureTask', 'FAILED', false] call BIS_fnc_taskSetState;
-						['killTask', true, ['Kill the target if capturing is not successful.', 'Kill HVT', ''], nil, 'FAILED', 0, false, true] call BIS_fnc_setTask;
-						_end = 'Lose';
-					};
-				} else {
-					['captureTask', 'FAILED', false] call BIS_fnc_taskSetState;
-					['killTask', true, ['Kill the target if capturing is not successful.', 'Kill HVT', ''], nil, 'SUCCEEDED', 0, false, true] call BIS_fnc_setTask;
-					_end = 'Salvaged';
-				};
-			};
-			
-			sleep 8;
-			
-			//Runs end.sqf on everyone. For varying mission end states, calculate the correct one here and send it as an argument for end.sqf
-			[_end,'end.sqf'] remoteExec ['BIS_fnc_execVM',west,false];
-		};
+		[[],'player\phaseSwitch.sqf'] remoteExec ['BIS_fnc_execVM',west,false];
 		
-		//Sets different stages of shit hitting fan
-		_kills_shit = 2 + (floor random 3);
-		_kills_extra_shit = _kills_shit + (floor random 6);
+		setTimeMultiplier 120;
+		waitUntil { dayTime >= 4.75 };
+		setTimeMultiplier 1;
 		
-		if (!(missionNamespace getVariable ['shit_extra_fan', false])) then {
-			if ((missionNamespace getVariable ['enemies_killed', 0] > _kills_extra_shit) || !canMove boat_1 || !canMove boat_2 || !canMove boat_3) then {
-				missionNamespace setVariable ['shit_extra_fan', true, true];
-				missionNamespace setVariable ['shit_fan', true, true];
-			};
-			
-			if (!(missionNamespace getVariable ['shit_extra_fan', false]) && !(missionNamespace getVariable ['shit_fan', false]) ) then {
-				if (missionNamespace getVariable ['enemies_killed', 0] > _kills_shit) then {
-					missionNamespace setVariable ['shit_fan', true, true];
-				};
-			};
-		};
-		
-		//Sets _players_away as true if everyone alive is in extract area:
-		_players_away = true;
-		{
-			if ( alive _x && !([trigger_extraction, (getPos (vehicle _x) )] call BIS_fnc_inTrigger) ) then {
-				_players_away = false;
-			};
-		} forEach playableUnits;
-		
-		//Advances to mission stage 2 if all players ready
-		if (!_phase_switch) then {
-			_phase_switch = true;
-			{
-				if (!(_x getVariable ['wetwork_ready', false]) && alive _x) then {
-					_phase_switch = false;
-				};
-			} forEach playableUnits;
-		};
-		
-		if ( dayTime < 4.75 ) then {
-			if (_phase_switch) then {
-				missionNamespace setVariable ['phase_switching', true, true];
-				
-				[[],'player\phaseSwitch.sqf'] remoteExec ['BIS_fnc_execVM',west,false];
-				
-				setTimeMultiplier 120;
-				waitUntil { dayTime >= 4.75 };
-				setTimeMultiplier 1;
-				
-				missionNamespace setVariable ['phase_switching', false, true];
-			};
-		};
-	
+		missionNamespace setVariable ['phase_switching', false, true];
 	};
 };
 
+//trigger to detect when time skip should happen
+trigger_timeskip = createTrigger ['EmptyDetector', [0,0,0], false];
+trigger_timeskip setTriggerActivation ['NONE', 'PRESENT', false];
+trigger_timeskip setTriggerStatements [
+	"{ _x getVariable ['wetwork_ready', false] } count playableUnits == count playableUnits",
+	"_timeskip = [] spawn phaseSwitch;",
+	""
+];
+
+//play generator sounds from generator until morning
 _generator_sounds = [] spawn {
-	while { dayTime < 4.75 } do {
+	while { dayTime < 4.5 } do {
 		_generator = generator_main;
 		_position = generator_main modelToWorld [0,0,0];
 		_filePath = [(str missionConfigFile), 0, -15] call BIS_fnc_trimString;
