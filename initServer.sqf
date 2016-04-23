@@ -6,8 +6,8 @@ This runs on the server machine after objects have initialised in the map. Anyth
 [missionNamespace, 1] call BIS_fnc_respawnTickets;
 [missionNamespace, -1] call BIS_fnc_respawnTickets;
 
-//Task setting: ['TaskName', locality, ['Description', 'Title', 'Marker'], target, 'STATE', priority, showNotification, true] call BIS_fnc_setTask;
-['captureTask', true, ['Capture the russian officer as proof of their involvement in the rebellion.', 'Capture HVT', ''], nil, 'ASSIGNED', 0, false, true] call BIS_fnc_setTask;
+//Set capture task
+[true, 'captureTask', ['Capture the russian officer as proof of their involvement in the rebellion.', 'Capture HVT', ''], nil, 'ASSIGNED', 0, false, 'target', false] call BIS_fnc_taskCreate;
 
 //end mission
 missionEnding = {
@@ -19,12 +19,12 @@ missionEnding = {
 				_end = 'Win';
 			} else {
 				['captureTask', 'FAILED', false] call BIS_fnc_taskSetState;
-				['killTask', true, ['Kill the target if capturing is not successful.', 'Kill HVT', ''], nil, 'FAILED', 0, false, true] call BIS_fnc_setTask;
+				[true, 'killTask', ['Kill the target if capturing is not successful.', 'Kill HVT', ''], nil, 'FAILED', 0, false, 'kill', false] call BIS_fnc_taskCreate;
 				_end = 'Lose';
 			};
 		} else {
 			['captureTask', 'FAILED', false] call BIS_fnc_taskSetState;
-			['killTask', true, ['Kill the target if capturing is not successful.', 'Kill HVT', ''], nil, 'SUCCEEDED', 0, false, true] call BIS_fnc_setTask;
+			[true, 'killTask', ['Kill the target if capturing is not successful.', 'Kill HVT', ''], nil, 'SUCCEEDED', 0, false, 'kill', false] call BIS_fnc_taskCreate;
 			_end = 'Salvaged';
 		};
 	};

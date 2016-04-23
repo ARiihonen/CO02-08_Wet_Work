@@ -8,6 +8,12 @@
 	};
 } forEach allUnits;
 
+//set ai skills
+_thing = execVM "ai\skills.sqf";
+waitUntil { scriptDone _thing };
+
+[(allUnits - playableUnits)] call ai_setSkills;
+
 //regular AI reaction if shit hits the fan:
 aiReaction = {
 	_groups = [group_main, group_aa, group_fwd];
